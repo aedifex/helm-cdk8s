@@ -1,0 +1,38 @@
+service:
+  name: SayHi
+  identifier: SayHi
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: aedifexk8smanifest
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: account.Github_OAuth_1720712504098
+                  gitFetchType: Branch
+                  paths:
+                    - hello-kubernetes.yaml
+                  repoName: cdk8s
+                  branch: master
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+          sources:
+            - spec:
+                connectorRef: account.Aedifex_Dev
+                imagePath: harness
+                tag: <+input>
+                digest: ""
+                region: us-west-2
+                registryId: "824987503353"
+              identifier: aedifexecr
+              type: Ecr
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: default_project
