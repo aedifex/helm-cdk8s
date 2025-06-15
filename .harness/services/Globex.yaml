@@ -3,7 +3,36 @@ service:
   identifier: Globex
   serviceDefinition:
     type: Kubernetes
-    spec: {}
+    spec:
+      manifests:
+        - manifest:
+            identifier: GlobexDev
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: account.Github_OAuth_1720712504098
+                  gitFetchType: Branch
+                  paths:
+                    - hello_eks.yml
+                  repoName: cdk8s
+                  branch: master
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+          sources:
+            - spec:
+                connectorRef: account.Aedifex_Dev
+                imagePath: harness
+                tag: latest
+                digest: ""
+                region: us-west-2
+                registryId: "824987503353"
+              identifier: aedifexecr
+              type: Ecr
   gitOpsEnabled: false
   orgIdentifier: default
   projectIdentifier: default_project
