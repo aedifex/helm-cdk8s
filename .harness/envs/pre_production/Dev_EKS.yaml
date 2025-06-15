@@ -1,0 +1,8 @@
+environment:
+  name: Dev EKS
+  identifier: Dev_EKS
+  description: ""
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: default_project
