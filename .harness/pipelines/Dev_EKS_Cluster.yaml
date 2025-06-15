@@ -80,3 +80,28 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+    - stage:
+        name: Custom
+        identifier: Custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Verify Deployment
+                  identifier: Verify_Deployment
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo "Listing pods in namespace: default"
+                          kubectl get pods -n default
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
