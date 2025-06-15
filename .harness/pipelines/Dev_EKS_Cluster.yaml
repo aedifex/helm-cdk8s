@@ -88,20 +88,50 @@ pipeline:
         spec:
           execution:
             steps:
-              - step:
-                  type: ShellScript
-                  name: Verify Deployment
-                  identifier: Verify_Deployment
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
+              - parallel:
+                  - step:
+                      type: ShellScript
+                      name: Expose Deployment
+                      identifier: Expose_Deployment
                       spec:
-                        script: |-
-                          echo "Listing pods in namespace: default"
-                          kubectl get pods -n default
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
+                        shell: Bash
+                        executionTarget: {}
+                        source:
+                          type: Inline
+                          spec:
+                            script: |-
+                              echo "Listing services in namespace: default"
+                              kubectl get svc -n default
+                        environmentVariables: []
+                        outputVariables: []
+                      timeout: 10m
+                  - step:
+                      type: ShellScript
+                      name: Health Check
+                      identifier: Health_Check
+                      spec:
+                        shell: Bash
+                        executionTarget: {}
+                        source:
+                          type: Inline
+                          spec:
+                            script: |
+                              #!/bin/bash
+
+                              URL="http://$(kubectl get svc aedifex-app -n default -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+
+                              echo "Hitting app at: $URL"
+
+                              # Curl it and check for a 200 OK response
+                              STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+                              if [[ "$STATUS_CODE" -eq 200 ]]; then
+                                echo "✅ Smoke test passed!"
+                              else
+                                echo "❌ Smoke test failed. Status code: $STATUS_CODE"
+                                exit 1
+                              fi
+                        environmentVariables: []
+                        outputVariables: []
+                      timeout: 10m
         tags: {}
