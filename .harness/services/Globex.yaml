@@ -16,7 +16,7 @@ service:
                   gitFetchType: Branch
                   paths:
                     - hello_eks.yml
-                  repoName: cdk8s
+                  repoName: aedifex/cdk8s
                   branch: master
               skipResourceVersioning: false
               enableDeclarativeRollback: false
