@@ -29,4 +29,7 @@ pipeline:
                   identifier: Hello
                   spec:
                     shell: Sh
-                    command: echo "Hello!"
+                    command: |-
+                      echo "Hello!"
+
+                      echo "Ave!"
