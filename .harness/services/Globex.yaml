@@ -1,0 +1,9 @@
+service:
+  name: Globex
+  identifier: Globex
+  serviceDefinition:
+    type: Kubernetes
+    spec: {}
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: default_project
