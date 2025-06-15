@@ -16,7 +16,7 @@ service:
                   gitFetchType: Branch
                   paths:
                     - hello-kubernetes.yaml
-                  repoName: cdk8s
+                  repoName: aedifex/cdk8s
                   branch: master
               skipResourceVersioning: false
               enableDeclarativeRollback: false
