@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: Dev EKS
+  identifier: Dev_EKS
+  orgIdentifier: default
+  projectIdentifier: default_project
+  environmentRef: Dev_EKS
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: EKS_Sandbox
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
