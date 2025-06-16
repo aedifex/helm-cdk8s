@@ -15,7 +15,7 @@ service:
                   connectorRef: account.Github_OAuth_1720712504098
                   gitFetchType: Branch
                   paths:
-                    - hello_eks.yml
+                    - manifests/hello_eks.yaml
                   repoName: aedifex/cdk8s
                   branch: master
               skipResourceVersioning: false
