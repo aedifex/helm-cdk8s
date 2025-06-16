@@ -106,4 +106,9 @@ pipeline:
                         environmentVariables: []
                         outputVariables: []
                       timeout: 10m
+          environment:
+            environmentRef: Dev_EKS
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: Dev_EKS
         tags: {}
