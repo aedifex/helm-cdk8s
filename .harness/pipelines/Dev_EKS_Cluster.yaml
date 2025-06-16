@@ -6,35 +6,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: Say Hi
-        identifier: Say_Hi
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: false
-          caching:
-            enabled: true
-            override: false
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: Hello
-                  identifier: Hello
-                  spec:
-                    shell: Sh
-                    command: |-
-                      echo "Hello!"
-
-                      echo "Ave!"
-    - stage:
-        name: Deploy EKS Dev
+        name: Deploy to Dev EKS Cluster
         identifier: Deploy_EKS_Dev
         description: ""
         type: Deployment
