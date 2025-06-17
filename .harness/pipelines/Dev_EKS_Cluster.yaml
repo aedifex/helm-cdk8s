@@ -6,6 +6,35 @@ pipeline:
   tags: {}
   stages:
     - stage:
+        name: Build Artifact
+        identifier: Build_Artifact
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushECR
+                  name: Build and Push to ECR
+                  identifier: Build_and_Push_to_ECR
+                  spec:
+                    connectorRef: account.Aedifex_Dev
+                    region: us-west-2
+                    account: "824987503353"
+                    imageName: gosst-eks
+                    tags:
+                      - latest
+    - stage:
         name: Deploy to Dev EKS Cluster
         identifier: Deploy_EKS_Dev
         description: ""
@@ -112,3 +141,9 @@ pipeline:
             infrastructureDefinitions:
               - identifier: Dev_EKS
         tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1720712504098
+        repoName: aedifex/cdk8s
+        build: <+input>
