@@ -34,6 +34,7 @@ pipeline:
                     imageName: gosst-eks
                     tags:
                       - latest
+                    dockerfile: app/Dockerfile
     - stage:
         name: Deploy to Dev EKS Cluster
         identifier: Deploy_EKS_Dev
