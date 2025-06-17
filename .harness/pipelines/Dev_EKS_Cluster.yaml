@@ -34,7 +34,7 @@ pipeline:
 
                       # make build
 
-                      ls -alt
+                      cd app && make build
               - step:
                   type: BuildAndPushECR
                   name: Build and Push to ECR
