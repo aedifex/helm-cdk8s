@@ -31,7 +31,10 @@ pipeline:
                     shell: Sh
                     command: |-
                       # Produce Binary
-                      make build
+
+                      # make build
+
+                      ls -alt
               - step:
                   type: BuildAndPushECR
                   name: Build and Push to ECR
