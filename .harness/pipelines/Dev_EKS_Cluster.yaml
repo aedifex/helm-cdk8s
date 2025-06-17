@@ -24,6 +24,15 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: Run
+                  name: Compile Binary
+                  identifier: Compile_Binary
+                  spec:
+                    shell: Sh
+                    command: |-
+                      # Produce Binary
+                      make build
+              - step:
                   type: BuildAndPushECR
                   name: Build and Push to ECR
                   identifier: Build_and_Push_to_ECR
