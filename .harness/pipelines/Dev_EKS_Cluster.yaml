@@ -49,7 +49,7 @@ pipeline:
                     account: "824987503353"
                     imageName: harness
                     tags:
-                      - latest
+                      - <+pipeline.sequenceId>
                     dockerfile: app/Dockerfile
           buildIntelligence:
             enabled: false
