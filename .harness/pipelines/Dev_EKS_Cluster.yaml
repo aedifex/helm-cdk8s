@@ -36,6 +36,8 @@ pipeline:
 
                       cd app
 
+                      go mod init aedifex/app
+
                       make build
               - step:
                   type: BuildAndPushECR
