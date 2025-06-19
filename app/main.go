@@ -76,7 +76,7 @@ func version(w http.ResponseWriter, r *http.Request) {
 	version := map[string]string{
 		"version":     build_id,
 		"build":       getEnv("BUILD_ID", "local-build"),
-		"commit":      getEnv("COMMIT_SHA", "123"),
+		"commit":      "333",
 		"branch":      getEnv("GIT_BRANCH", "local"),
 		"timestamp":   build_time,
 		"deployed_by": getEnv("DEPLOYED_BY", "developer"),
