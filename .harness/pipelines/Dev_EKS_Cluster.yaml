@@ -30,10 +30,6 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      # Produce Binary
-
-                      # make build
-
                       cd app
 
                       go mod init aedifex/app
