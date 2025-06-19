@@ -31,8 +31,10 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-
                       export COMMIT_SHA="<+codebase.commitSha>"
+
+
+                      cat manifests/hello_eks.yaml
 
                       cd app
 
