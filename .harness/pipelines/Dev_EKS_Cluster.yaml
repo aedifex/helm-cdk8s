@@ -47,7 +47,7 @@ pipeline:
                     connectorRef: account.Aedifex_Dev
                     region: us-west-2
                     account: "824987503353"
-                    imageName: gosst-eks
+                    imageName: harness
                     tags:
                       - latest
                     dockerfile: app/Dockerfile
