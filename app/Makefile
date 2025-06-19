@@ -1,5 +1,5 @@
 # Variables
-APP_NAME := gosst-eks
+APP_NAME := harness
 DOCKER_IMAGE := 824987503353.dkr.ecr.us-west-2.amazonaws.com/$(APP_NAME)
 
 TAG := latest
