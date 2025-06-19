@@ -34,7 +34,7 @@ pipeline:
 
                       go mod init aedifex/app
 
-                      make build
+                      make build COMMIT_SHA=<+codebase.commitSha>
               - step:
                   type: BuildAndPushECR
                   name: Build and Push to ECR

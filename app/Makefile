@@ -5,6 +5,8 @@ DOCKER_IMAGE := 824987503353.dkr.ecr.us-west-2.amazonaws.com/$(APP_NAME)
 TAG := latest
 BINARY := main_linux
 
+COMMIT_SHA := unknown
+
 # Default target
 .PHONY: all
 all: build
