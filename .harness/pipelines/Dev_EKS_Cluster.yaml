@@ -62,14 +62,6 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: Globex
-            serviceInputs:
-              serviceDefinition:
-                type: Kubernetes
-                spec:
-                  artifacts:
-                    primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
           environment:
             environmentRef: Dev_EKS
             deployToAll: false
