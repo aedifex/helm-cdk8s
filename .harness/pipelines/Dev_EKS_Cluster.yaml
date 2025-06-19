@@ -30,6 +30,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
+                      
+                      export COMMIT_SHA="<+codebase.commitSha>"
+                      
                       cd app
 
                       go mod init aedifex/app
