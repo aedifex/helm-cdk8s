@@ -26,6 +26,6 @@ spec:
     spec:
       containers:
         - name: aedifex-app
-          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:latest
+          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:<+pipeline.sequenceId>
           ports:
             - containerPort: 8000
