@@ -23,9 +23,11 @@ spec:
     metadata:
       labels:
         app: aedifex-app
+      annotations:
+        harness.io/triggered-by-pipeline-sequence: "<+pipeline.sequenceId>"
     spec:
       containers:
         - name: aedifex-app
-          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:<+pipeline.sequenceId>
+          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:<+artifact.tag>
           ports:
             - containerPort: 8000
