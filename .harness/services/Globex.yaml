@@ -17,7 +17,7 @@ service:
                   paths:
                     - manifests/hello_eks.yaml
                   repoName: aedifex/cdk8s
-                  branch: master
+                  branch: add-ci
               skipResourceVersioning: false
               enableDeclarativeRollback: false
       artifacts:
