@@ -24,11 +24,11 @@ spec:
       labels:
         app: aedifex-app
       annotations:
-        harness.io/triggered-by-pipeline-sequence: <+pipeline.sequenceId>
+        harness.io/triggered-by-pipeline-sequence: {{ .Values.imageTag }}
     spec:
       containers:
         - name: aedifex-app
-          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:<+pipeline.sequenceId>
+          image: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness:{{ .Values.imageTag }}
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
