@@ -18,6 +18,8 @@ service:
                     - manifests/hello_eks.yaml
                   repoName: aedifex/cdk8s
                   branch: master
+              valuesPaths:
+                - manifests/values.yaml
               skipResourceVersioning: false
               enableDeclarativeRollback: false
       artifacts:
