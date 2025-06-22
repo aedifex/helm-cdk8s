@@ -40,7 +40,10 @@ pipeline:
 
                       go mod init aedifex/app
 
-                      make build COMMIT_SHA=<+codebase.commitSha>
+                      make build \
+                        COMMIT_SHA="<+codebase.commitSha>" \
+                        GIT_BRANCH="<+codebase.branch>" \
+                        DEPLOYED_BY="<+pipeline.triggeredBy.email>"
               - step:
                   type: BuildAndPushECR
                   name: Build and Push to ECR
