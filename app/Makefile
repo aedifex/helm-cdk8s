@@ -6,6 +6,8 @@ TAG := latest
 BINARY := main_linux
 
 COMMIT_SHA := unknown
+DEPLOYED_BY := unknown
+GIT_BRANCH := unknown
 
 # Default target
 .PHONY: all
@@ -14,7 +16,12 @@ all: build
 # Build the Go binary
 .PHONY: build
 build:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X 'main.CommitSHA=$(COMMIT_SHA)'" -o $(BINARY) .
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+	go build -ldflags "\
+		-X 'main.CommitSHA=$(COMMIT_SHA)' \
+		-X 'main.git_branch=$(GIT_BRANCH)' \
+		-X 'main.deployed_by=$(DEPLOYED_BY)'" \
+		-o $(BINARY) .
 
 # Run the application locally
 .PHONY: run
