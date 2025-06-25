@@ -4,6 +4,7 @@ DOCKER_IMAGE := 824987503353.dkr.ecr.us-west-2.amazonaws.com/$(APP_NAME)
 
 TAG := latest
 BINARY := main_linux
+TIMESTAMP := $(shell date -u +%Y%m%d%H%M%S)
 
 COMMIT_SHA := unknown
 DEPLOYED_BY := unknown
@@ -20,7 +21,8 @@ build:
 	go build -ldflags "\
 		-X 'main.CommitSHA=$(COMMIT_SHA)' \
 		-X 'main.git_branch=$(GIT_BRANCH)' \
-		-X 'main.deployed_by=$(DEPLOYED_BY)'" \
+		-X 'main.deployed_by=$(DEPLOYED_BY)' \
+		-X 'main.build_time=$(TIMESTAMP)'" \
 		-o $(BINARY) .
 
 # Run the application locally

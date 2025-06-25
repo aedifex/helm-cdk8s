@@ -17,8 +17,8 @@ import (
 )
 
 // These values will be used to version the binary.
-var build_id, build_time = "dev", "dev"
-var CommitSHA, deployed_by, git_branch string
+var build_id = "dev"
+var CommitSHA, deployed_by, git_branch, build_time string
 
 // Takes an element, returns an array of bytes in JSON format.
 func jsonIfy(element interface{}) ([]byte, error) {
@@ -78,7 +78,7 @@ func version(w http.ResponseWriter, r *http.Request) {
 		"build":       getEnv("BUILD_ID", "local-build"),
 		"commit":      CommitSHA,
 		"branch":      git_branch,
-		"timestamp":   build_time,
+		"build_time":  build_time,
 		"deployed_by": deployed_by,
 		"env":         getEnv("DEPLOY_ENV", "dev"),
 	}
