@@ -17,8 +17,7 @@ import (
 )
 
 // These values will be used to version the binary.
-var build_id = "dev"
-var CommitSHA, deployed_by, git_branch, build_time string
+var CommitSHA, deployed_by, git_branch, build_time, build_id string
 
 // Takes an element, returns an array of bytes in JSON format.
 func jsonIfy(element interface{}) ([]byte, error) {

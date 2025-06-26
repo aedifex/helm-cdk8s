@@ -5,10 +5,8 @@ DOCKER_IMAGE := 824987503353.dkr.ecr.us-west-2.amazonaws.com/$(APP_NAME)
 TAG := latest
 BINARY := main_linux
 TIMESTAMP := $(shell date -u +%Y%m%d%H%M%S)
-
-COMMIT_SHA := unknown
-DEPLOYED_BY := unknown
-GIT_BRANCH := unknown
+GIT_SHA := $(shell git rev-parse --short HEAD)
+BUILD_ID := $(TIMESTAMP)-$(GIT_SHA)
 
 # Default target
 .PHONY: all
@@ -22,7 +20,8 @@ build:
 		-X 'main.CommitSHA=$(COMMIT_SHA)' \
 		-X 'main.git_branch=$(GIT_BRANCH)' \
 		-X 'main.deployed_by=$(DEPLOYED_BY)' \
-		-X 'main.build_time=$(TIMESTAMP)'" \
+		-X 'main.build_time=$(TIMESTAMP)' \
+		-X 'main.build_id=$(BUILD_ID)'" \
 		-o $(BINARY) .
 
 # Run the application locally
