@@ -113,5 +113,8 @@ pipeline:
             infrastructureDefinitions:
               - identifier: Dev_EKS
         tags: {}
+        when:
+          pipelineStatus: Success
+          condition: "false"
   identifier: Helm_Deploy_to_Dev_EKS_Cluster
   name: Helm Deploy to Dev EKS Cluster
