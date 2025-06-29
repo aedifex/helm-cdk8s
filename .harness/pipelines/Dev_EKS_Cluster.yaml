@@ -6,6 +6,59 @@ pipeline:
   tags: {}
   stages:
     - stage:
+        name: Build Artifact
+        identifier: Build_Artifact
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: false
+            override: false
+            paths: []
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Compile Binary
+                  identifier: Compile_Binary
+                  spec:
+                    shell: Sh
+                    command: |-
+                      export COMMIT_SHA="<+codebase.commitSha>"
+
+
+                      cat manifests/hello_eks.yaml
+
+                      cd app
+
+                      go mod init aedifex/app
+
+                      make build \
+                        COMMIT_SHA="<+codebase.commitSha>" \
+                        GIT_BRANCH="<+codebase.branch>" \
+                        DEPLOYED_BY="<+pipeline.triggeredBy.email>"
+              - step:
+                  type: BuildAndPushECR
+                  name: Build and Push to ECR
+                  identifier: Build_and_Push_to_ECR
+                  spec:
+                    connectorRef: account.Aedifex_Dev
+                    region: us-west-2
+                    account: "824987503353"
+                    imageName: harness
+                    tags:
+                      - <+pipeline.sequenceId>
+                    dockerfile: app/Dockerfile
+          buildIntelligence:
+            enabled: false
+    - stage:
         name: Deploy to Dev EKS Cluster
         identifier: Deploy_EKS_Dev
         description: ""
@@ -14,14 +67,6 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: Globex
-            serviceInputs:
-              serviceDefinition:
-                type: Kubernetes
-                spec:
-                  artifacts:
-                    primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
           environment:
             environmentRef: Dev_EKS
             deployToAll: false
@@ -112,3 +157,9 @@ pipeline:
             infrastructureDefinitions:
               - identifier: Dev_EKS
         tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1720712504098
+        repoName: aedifex/cdk8s
+        build: <+input>

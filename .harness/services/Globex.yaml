@@ -17,14 +17,14 @@ service:
                   paths:
                     - manifests/hello_eks.yaml
                   repoName: aedifex/cdk8s
-                  branch: master
+                  branch: add-ci
               valuesPaths:
                 - manifests/values.yaml
               skipResourceVersioning: false
               enableDeclarativeRollback: false
       artifacts:
         primary:
-          primaryArtifactRef: <+input>
+          primaryArtifactRef: aedifexecr
           sources:
             - spec:
                 connectorRef: account.Aedifex_Dev
