@@ -50,6 +50,9 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+        when:
+          pipelineStatus: Success
+          condition: "false"
     - stage:
         name: Custom
         identifier: Custom
