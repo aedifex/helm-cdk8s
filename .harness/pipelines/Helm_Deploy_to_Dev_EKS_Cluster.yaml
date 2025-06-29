@@ -1,0 +1,114 @@
+pipeline:
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Deploy to Dev EKS Cluster
+        identifier: Deploy_EKS_Dev
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: Globex
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: <+input>
+                      sources: <+input>
+          environment:
+            environmentRef: Dev_EKS
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: Dev_EKS
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+    - stage:
+        name: Custom
+        identifier: Custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - parallel:
+                  - step:
+                      type: ShellScript
+                      name: Expose Deployment
+                      identifier: Expose_Deployment
+                      spec:
+                        shell: Bash
+                        executionTarget: {}
+                        source:
+                          type: Inline
+                          spec:
+                            script: |-
+                              echo "Listing services in namespace: default"
+                              kubectl get svc -n default
+                        environmentVariables: []
+                        outputVariables: []
+                      timeout: 10m
+                  - step:
+                      type: ShellScript
+                      name: Health Check
+                      identifier: Health_Check
+                      spec:
+                        shell: Bash
+                        executionTarget: {}
+                        source:
+                          type: Inline
+                          spec:
+                            script: |
+                              #!/bin/bash
+
+                              URL="http://$(kubectl get svc aedifex-app -n default -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+
+                              echo "Hitting app at: $URL"
+
+                              # Curl it and check for a 200 OK response
+                              STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+                              if [[ "$STATUS_CODE" -eq 200 ]]; then
+                                echo "✅ Smoke test passed!"
+                              else
+                                echo "❌ Smoke test failed. Status code: $STATUS_CODE"
+                                exit 1
+                              fi
+                        environmentVariables: []
+                        outputVariables: []
+                      timeout: 10m
+          environment:
+            environmentRef: Dev_EKS
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: Dev_EKS
+        tags: {}
+  identifier: Helm_Deploy_to_Dev_EKS_Cluster
+  name: Helm Deploy to Dev EKS Cluster
