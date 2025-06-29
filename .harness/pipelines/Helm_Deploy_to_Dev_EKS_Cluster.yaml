@@ -21,7 +21,19 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "Ave Mundus"
+                        script: |
+                          #!/bin/bash
+                          set -e
+
+                          # Install Helm
+                          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+                          # Install helm-diff plugin
+                          helm plugin install https://github.com/databus23/helm-diff
+
+                          # Confirm
+                          helm version
+                          helm plugin list
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
