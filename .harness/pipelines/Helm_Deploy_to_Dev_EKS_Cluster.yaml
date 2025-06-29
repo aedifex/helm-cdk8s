@@ -4,6 +4,29 @@ pipeline:
   tags: {}
   stages:
     - stage:
+        name: Setup Helm Diff
+        identifier: Setup_Helm_Diff
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Execute Helm Diff
+                  identifier: Execute_Helm_Diff
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "Ave Mundus"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+    - stage:
         name: Deploy to Dev EKS Cluster
         identifier: Deploy_EKS_Dev
         description: ""
