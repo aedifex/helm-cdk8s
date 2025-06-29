@@ -1,18 +1,21 @@
-# Harness + EKS Demo
-This is a working CI/CD pipeline that deploys a containerized application to an Amazon EKS cluster using Harness.
+# Harness + EKS (Helm) Demo
+
+This repo contains Helm charts and deployment configuration for running a containerized application on Amazon EKS using Harness and Helm.
 
 ## 🔧 What This Repo Does
-- Builds a Docker image from source
-- Pushes the image to Amazon ECR
-- Deploys to EKS via Helm/K8s manifests
-- Validates deployment with a post-deploy verification step
+- Defines a Helm chart for the application
+- Supports dynamic Helm values (e.g., image tag, environment, deployer)
+- Integrates with Harness pipelines for Helm-based deployments
+- Enables Helm Diff for pre-deploy visibility
+- Cleanly separates app source code (in another repo) from deployment config
 
 ## 💡 Tech Stack
-- **Harness CI/CD** for pipeline orchestration
+- **Helm** for templated Kubernetes manifests
+- **Harness CD & GitOps** for deployment orchestration
 - **Amazon EKS** for Kubernetes hosting
-- **Amazon ECR** for container registry
+- **Amazon ECR** for container registry (artifact pulled from external repo)
 
 ## 🚀 Quick Summary
-This setup enables automated, production-grade Kubernetes deployments with minimal manual effort. From code to container to cluster — all in under 5 minutes.
+This repo enables clean, fast, and flexible Helm-based deployments of prebuilt application artifacts to EKS. Built for use with Harness pipelines, it supports diff previews, environment-specific overrides, and traceable metadata.
 
-*Built for demo purposes. Ask me how to set this up for your team.*
+*Built as part of a production-grade CI/CD lab. Ask me how to use this pattern with your stack.*
