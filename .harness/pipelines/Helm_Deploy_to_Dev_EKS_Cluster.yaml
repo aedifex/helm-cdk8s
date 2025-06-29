@@ -51,7 +51,7 @@ pipeline:
                   name: Approve Deployment
                   identifier: Approve_Deployment
                   spec:
-                    approvalMessage: "Pipeline: <+pipeline.name>"
+                    approvalMessage: "Pipeline: <+pipeline.name>/TestingHelmDiff"
                     includePipelineExecutionHistory: true
                     isAutoRejectEnabled: false
                     approvers:
