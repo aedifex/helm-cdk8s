@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+app:
+  name: aedifex-app
