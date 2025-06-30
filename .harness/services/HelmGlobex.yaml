@@ -1,0 +1,29 @@
+service:
+  name: HelmGlobex
+  identifier: HelmGlobex
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: aedifexAppHelmChart
+            type: HelmChart
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: account.Github_OAuth_1720712504098
+                  gitFetchType: Branch
+                  folderPath: /aedifex-app
+                  repoName: helm-cdk8s
+                  branch: master
+              subChartPath: ""
+              valuesPaths:
+                - /aedifex-app/values.yaml
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+              helmVersion: V3
+              fetchHelmChartMetadata: false
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: default_project
