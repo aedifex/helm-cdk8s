@@ -15,7 +15,7 @@ service:
                   connectorRef: account.Github_OAuth_1720712504098
                   gitFetchType: Branch
                   folderPath: /aedifex-app
-                  repoName: helm-cdk8s
+                  repoName: /aedifex/helm-cdk8s
                   branch: master
               subChartPath: ""
               valuesPaths:
