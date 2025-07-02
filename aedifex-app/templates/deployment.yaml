@@ -22,4 +22,4 @@ spec:
             - containerPort: {{ .Values.service.targetPort }}
           env:
             - name: DEPLOY_MESSAGE
-              value: {{ .Values.deployMessage | quote }}
+              value: {{ .Values.DEPLOY_MESSAGE | quote }}
