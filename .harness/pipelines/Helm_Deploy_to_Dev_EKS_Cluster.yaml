@@ -122,6 +122,14 @@ pipeline:
               deploymentType: Kubernetes
               service:
                 serviceRef: HelmGlobex
+                serviceInputs:
+                  serviceDefinition:
+                    type: Kubernetes
+                    spec:
+                      variables:
+                        - name: DEPLOY_MESSAGE
+                          type: String
+                          value: <+input>
                 gitBranch: master
               environment:
                 environmentRef: Dev_EKS
