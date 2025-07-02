@@ -12,3 +12,5 @@ service:
 
 app:
   name: aedifex-app
+
+DEPLOY_MESSAGE: "hello from values.yaml"
