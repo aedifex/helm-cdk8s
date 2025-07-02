@@ -24,6 +24,12 @@ service:
               enableDeclarativeRollback: false
               helmVersion: V3
               fetchHelmChartMetadata: false
+      variables:
+        - name: DEPLOY_MESSAGE
+          type: String
+          description: ""
+          required: true
+          value: <+input>
   gitOpsEnabled: false
   orgIdentifier: default
   projectIdentifier: default_project
