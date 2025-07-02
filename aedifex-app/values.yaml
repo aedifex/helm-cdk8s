@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: 824987503353.dkr.ecr.us-west-2.amazonaws.com/harness
-  tag: 66
+  tag: 71
   pullPolicy: Always
 
 service:
